@@ -1,16 +1,29 @@
+import { useState } from "react"
 const initialboard= [
     [null, null, null],
     [null, null, null],
     [null, null, null]
 ]
+//if your state is object or an array you update that state in im-mutable way simply make a copt of that state and make changes in that copy
 
 export default function GameBoard(){
+const[gameBoard, setgameBoard]=useState(initialboard)
+
+function handleSelect(rowIndex , colIndex) {
+    setgameBoard((prevGameBoard) => {
+        const updatedGameBoard = [...prevGameBoard.map(innerArray=>[...innerArray])]
+        updatedGameBoard[rowIndex][colIndex] = 'X'
+        return updatedGameBoard
+
+    })
+}
     return <ol id="game-board">
-   {initialboard.map((row, rowIndex)=>(
+   {gameBoard.map((row, rowIndex)=>(
     <li key={rowIndex}>
         <ol>
             {row.map((playerSymbol, colIndex) =>(
-                <li key={colIndex}><button>{playerSymbol}</button></li>
+                <li key={colIndex}>
+                <button onClick={()=>handleSelect(rowIndex,colIndex)}>{playerSymbol}</button></li>
             ))}
         </ol>
     </li>
