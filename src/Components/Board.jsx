@@ -6,16 +6,17 @@ const initialboard= [
 ]
 //if your state is object or an array you update that state in im-mutable way simply make a copt of that state and make changes in that copy
 
-export default function GameBoard(){
+export default function GameBoard({onSelectSquare, activePlayerSymbol}){
 const[gameBoard, setgameBoard]=useState(initialboard)
 
 function handleSelect(rowIndex , colIndex) {
     setgameBoard((prevGameBoard) => {
         const updatedGameBoard = [...prevGameBoard.map(innerArray=>[...innerArray])]
-        updatedGameBoard[rowIndex][colIndex] = 'X'
+        updatedGameBoard[rowIndex][colIndex] = activePlayerSymbol;
         return updatedGameBoard
 
     })
+    onSelectSquare()
 }
     return <ol id="game-board">
    {gameBoard.map((row, rowIndex)=>(
