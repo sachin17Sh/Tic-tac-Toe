@@ -1,10 +1,14 @@
 import { useState } from "react";
 
-export default function Player({ initialname, symbol, isActive}) {
+export default function Player({ initialname, symbol, isActive, onChangeName}) {
   const [playerName, setplayerName] = useState(initialname);
   const [isEdit, setisEdited] = useState(false);
   function handleClick() {
     setisEdited((editing) => !editing); // use the function if you want to change the state which depend on previous state value like true to false or false to true
+    if (isEdit){
+      onChangeName(symbol, playerName)
+    }
+    
   }
   function handlechange(event) {
     setplayerName(event.target.value);
